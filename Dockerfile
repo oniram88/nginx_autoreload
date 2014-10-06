@@ -3,7 +3,7 @@
 # to `latest`! See
 # https://github.com/phusion/baseimage-docker/blob/master/Changelog.md
 # for a list of version numbers.
-FROM onitam88/base_build:1.0.0
+FROM oniram88/base-build:1.0.0
 
 # Set correct environment variables.
 ENV HOME /root
@@ -32,9 +32,17 @@ RUN cd /tmp/nginx-1.6.0 &&\
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD nginx-watch/nginxwatch.sh /sbin/nginx_watch/run.sh
+##Preparo l'inserimento del watcher
+RUN mkdir /etc/service/nginx-watch
+ADD nginx-watch/nginxwatch.sh /etc/service/nginx-watch/run
+RUN chmod +x /etc/service/nginx-watch/run
 
+## inserisco nginx come altro demone
+RUN mkdir /etc/service/nginx
+ADD nginx_start.sh /etc/service/nginx/run
+RUN chmod +x /etc/service/nginx/run
 
+EXPOSE 80
 
 
 
