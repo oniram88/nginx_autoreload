@@ -3,7 +3,7 @@
 # to `latest`! See
 # https://github.com/phusion/baseimage-docker/blob/master/Changelog.md
 # for a list of version numbers.
-FROM phusion/baseimage:0.9.14
+FROM onitam88/base_build:1.0.0
 
 # Set correct environment variables.
 ENV HOME /root
@@ -17,14 +17,22 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 #Eseguendo la build di nginx e lo installo, la versionde le pacchetto è ferma alla 1.4.3
-RUN apt-get update &&\
-    apt-get install wget &&\
-    cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz && tar -xvzf nginx-1.6.0.tar.gz &&\
-    cd nginx-1.6.0 && ./configure && make && make install
+
+RUN apt-get update
+RUN apt-get -y install libpcre3 libpcre3-dev libssl-dev
+
+RUN cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz && tar -xvzf nginx-1.6.0.tar.gz
+
+RUN cd /tmp/nginx-1.6.0 &&\
+    ./configure \
+    --with-http_ssl_module  &&\
+    make && make install
 
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ADD nginx-watch/nginxwatch.sh /sbin/nginx_watch/run.sh
 
 
 
