@@ -16,21 +16,6 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-#Eseguendo la build di nginx e lo installo, la versionde le pacchetto è ferma alla 1.4.3
-
-RUN apt-get update
-RUN apt-get -y install libpcre3 libpcre3-dev libssl-dev
-
-RUN cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz && tar -xvzf nginx-1.6.0.tar.gz
-
-RUN cd /tmp/nginx-1.6.0 &&\
-    ./configure \
-    --with-http_ssl_module  &&\
-    make && make install
-
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ##Preparo l'inserimento del watcher
 RUN mkdir /etc/service/nginx-watch
@@ -41,6 +26,22 @@ RUN chmod +x /etc/service/nginx-watch/run
 RUN mkdir /etc/service/nginx
 ADD nginx_start.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
+
+
+#Eseguendo la build di nginx e lo installo, la versionde del pacchetto è ferma alla 1.4.3
+RUN apt-get update &&\
+    apt-get -y install libpcre3 libpcre3-dev libssl-dev &&\
+
+    cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz && tar -xvzf nginx-1.6.0.tar.gz &&\
+
+    cd /tmp/nginx-1.6.0 &&\
+    ./configure \
+    --with-http_ssl_module  &&\
+    make && make install &&\
+
+# Clean up APT when done.
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
+
 
 EXPOSE 80
 
