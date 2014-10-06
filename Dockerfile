@@ -30,7 +30,7 @@ RUN chmod +x /etc/service/nginx/run
 
 #Eseguendo la build di nginx e lo installo, la versionde del pacchetto è ferma alla 1.4.3
 RUN apt-get update &&\
-    apt-get -y install libpcre3 libpcre3-dev libssl-dev &&\
+    apt-get -y install libpcre3 libpcre3-dev libssl-dev inotify-tools &&\
 
     cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz &&\
     tar -xvzf nginx-1.6.0.tar.gz &&\
