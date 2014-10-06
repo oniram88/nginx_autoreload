@@ -32,7 +32,8 @@ RUN chmod +x /etc/service/nginx/run
 RUN apt-get update &&\
     apt-get -y install libpcre3 libpcre3-dev libssl-dev &&\
 
-    cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz && tar -xvzf nginx-1.6.0.tar.gz &&\
+    cd /tmp && wget http://nginx.org/download/nginx-1.6.0.tar.gz &&\
+    tar -xvzf nginx-1.6.0.tar.gz &&\
 
     cd /tmp/nginx-1.6.0 &&\
     ./configure \
@@ -40,7 +41,7 @@ RUN apt-get update &&\
     make && make install &&\
 
 # Clean up APT when done.
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 EXPOSE 80
