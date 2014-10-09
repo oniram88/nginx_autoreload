@@ -45,8 +45,8 @@ RUN apt-get update &&\
 
 
 EXPOSE 80
-RUN mkdir /var/nginx_conf
-ENV WWW_DIR /var/nginx_conf
+RUN mkdir /var/nginx_sites_enabled
+ENV WWW_DIR /var/nginx_sites_enabled
 
 
 
