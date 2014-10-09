@@ -19,7 +19,7 @@ CMD ["/sbin/my_init"]
 
 ##Preparo l'inserimento del watcher
 RUN mkdir /etc/service/nginx-watch
-ADD nginx-watch/nginxwatch.sh /etc/service/nginx-watch/run
+ADD nginxwatch.sh /etc/service/nginx-watch/run
 RUN chmod +x /etc/service/nginx-watch/run
 
 ## inserisco nginx come altro demone
@@ -45,6 +45,8 @@ RUN apt-get update &&\
 
 
 EXPOSE 80
+RUN mkdir /var/nginx_conf
+ENV WWW_DIR /var/nginx_conf
 
 
 
