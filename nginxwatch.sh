@@ -48,7 +48,7 @@ REGEX_EXCLUDE="(/\.git/(.*)|sample.nginx.conf)$"
 ##
 if env | grep -q ^WWW_DIR=
 then
-  echo www already exported $(WWW_DIR)
+  echo -e "www already exported ${WWW_DIR}"
 else
   echo env variable was not exported, but now it is
   WWW_DIR="/var/www/"
