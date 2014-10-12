@@ -43,10 +43,11 @@ RUN apt-get update &&\
 # Clean up APT when done.
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 80
-RUN mkdir /var/nginx_sites_enabled
-ENV WWW_DIR /var/nginx_sites_enabled
+RUN mkdir /var/nginx/sites_enabled
+ENV WWW_DIR /var/nginx/sites_enabled
 
 
 
