@@ -46,7 +46,7 @@ RUN apt-get update &&\
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 80
-RUN mkdir /var/nginx/sites_enabled
+RUN mkdir -p /var/nginx/sites_enabled
 ENV WWW_DIR /var/nginx/sites_enabled
 
 
