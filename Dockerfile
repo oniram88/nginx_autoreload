@@ -44,6 +44,7 @@ RUN apt-get update &&\
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
+RUN ln -s /usr/local/nginx/sbin/nginx /etc/init.d/nginx
 
 EXPOSE 80
 RUN mkdir -p /var/nginx/sites_enabled

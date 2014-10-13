@@ -121,7 +121,7 @@ while true; do
         fi
       fi
       # Reload Nginx
-      RELOAD=$(/etc/init.d/nginx reload 2>&1 1> /dev/null)
+      RELOAD=$(/etc/init.d/nginx -s reload 2>&1 1> /dev/null)
 
       # Check for errors while reloading
       if [ "$RELOAD" ]; then
